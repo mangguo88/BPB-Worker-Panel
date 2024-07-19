@@ -20,7 +20,7 @@ let proxyIP = proxyIPs[Math.floor(Math.random() * proxyIPs.length)];
 
 let dohURL = 'https://cloudflare-dns.com/dns-query';
 
-let panelVersion = '2.4.5';
+let panelVersion = '2.4.5'; 
 
 if (!isValidUUID(userID)) {
     throw new Error('uuid is not valid');
@@ -69,7 +69,7 @@ export default {
 
                     case `/fragsub/${userID}`:
 
-                        let fragConfigs = await getFragmentConfigs(env, host, 'v2ray');
+                        let fragConfigs = await getFragmentConfigs(env, host, 'v2ray'); 
                         fragConfigs = fragConfigs.map(config => config.config);
 
                         return new Response(`${JSON.stringify(fragConfigs, null, 4)}`, { status: 200 });
@@ -117,7 +117,7 @@ export default {
                             }
                         });
                                                       
-                    case '/login':
+                    case '/login': 
 
                         if (typeof env.bpb !== 'object') {
                             const errorPage = renderErrorPage('KV Dataset is not properly set!', null, true);
@@ -186,22 +186,21 @@ export default {
                         let passAuth = await Authenticate(request, env);
                         if (!passAuth) return new Response('Unauthorized!', { status: 401 });           
                         const newPwd = await request.text();
-                        const oldPwd = await env.bpb.get('pwd');
+                        const oldPwd = await env.bpb.get('pwd'); 
                         if (newPwd === oldPwd) return new Response('Please enter a new Password!', { status: 400 });
                         await env.bpb.put('pwd', newPwd);
 
-                        return new Response('Success', {
+                        return new Response('Success', { 
                             status: 200,
                             headers: {
                                 'Set-Cookie': 'jwtToken=; Path=/; Secure; SameSite=None; Expires=Thu, 01 Jan 1970 00:00:00 GMT',
-                                'Content-Type': 'text/plain',
+                                'Content-Type': 'text/plain'， 
                             }
                         });
 
-                    default:
-                        // return new Response('Not found', { status: 404 });
+                    default:  
                         url.hostname = 'www.speedtest.net';
-                        url.protocol = 'https:';
+                        url.protocol = 'https:'; 
                         request = new Request(url, request);
                         return await fetch(request);
                 }
