@@ -51,7 +51,7 @@ export default {
                 switch (url.pathname) {
 
                     case '/cf':
-                        return new Response(JSON.stringify(request.cf, null, 4), {
+                        return new Response(JSON.stringify(request.cf, null, 4), { 
                             status: 200,
                             headers: {
                                 'Content-Type': 'application/json;charset=utf-8',
@@ -197,16 +197,22 @@ export default {
                                 'Content-Type': 'text/plain'， 
                             }
                         });
-
-                    default:  
-                        url.hostname = 'www.speedtest.net';
-                        url.protocol = 'https:'; 
-                        request = new Request(url, request);
-                        return await fetch(request);
+		     default:
+    return new Response('Not found', { status: 404 });
+return new Response('未找到', { status: 404 });
+    url.hostname = 'www.speedtest.net';
+    url.protocol = 'https:';
+    request = new Request(url, request);
+请求=新请求（url，请求）；
+    return await fetch(request);	 
+                        url.hostname = 'www.speedtest.net';   
+                        url.protocol = 'https:';   
+                        request = new Request(url, request); 
+                        return await fetch(request); 
                 }
             } else {
                 return await vlessOverWSHandler(request);
-            }
+	    }
         } catch (err) {
             /** @type {Error} */ let e = err;
             const errorPage = renderErrorPage('Something went wrong!', e.message.toString(), false);
